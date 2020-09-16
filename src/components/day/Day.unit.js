@@ -9,6 +9,8 @@ import {
   comp3
 } from './fixtures';
 
+import i18n from './fixtures/i18n';
+
 describe('Day Component', () => {
   it('Should build a day component', () => {
     return Harness.testCreate(DayComponent, comp1).then((component) => {
@@ -163,6 +165,12 @@ describe('Day Component', () => {
   it('should normalize min-max dates on dayFirst', () => {
     Harness.testCreate(DayComponent, comp3).then((component) => {
       assert.equal(component.normalizeMinMaxDates(), ['04/02/2020', '09/02/2020']);
+    });
+  });
+
+  it('should use translations', () => {
+    Harness.testCreate(DayComponent, comp1, {}, i18n).then((component) => {
+      Harness.testInnerHtml(component, `label[for="${component.component.key}-day"]`, 'Tag');
     });
   });
 });

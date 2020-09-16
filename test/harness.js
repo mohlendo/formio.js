@@ -165,7 +165,7 @@ const Harness = {
     timestamp = parseInt(timestamp / 1000, 10);
     return (new Date(timestamp * 1000)).toISOString();
   },
-  testCreate(Component, componentSettings, options = {}) {
+  testCreate(Component, componentSettings, options = {}, i18nOptions) {
     const compSettings = _.cloneDeep(componentSettings);
     const component = new Component(compSettings, _.merge({
       events: new EventEmitter({
@@ -175,7 +175,7 @@ const Harness = {
     }, options));
     component.pristine = false;
     return new Promise((resolve, reject) => {
-      i18next.init(i18Defaults, (err) => {
+      i18next.init(i18nOptions || i18Defaults, (err) => {
         if (err) {
           return reject(err);
         }
